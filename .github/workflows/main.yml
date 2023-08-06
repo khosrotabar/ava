@@ -15,7 +15,12 @@ jobs:
 
       - name: Set base in vite.config.js
         run: |
-          sed -i "s/base: '\/'/base: '\/ava'/" vite.config.js
+          if [[ -f "vite.config.js" ]]; then
+            sed -i "s/base: '\/'/base: '\/ava'/" vite.config.js
+          else
+            echo "vite.config.js file not found."
+            exit 1
+          fi
 
       - name: Install dependencies and build
         run: |
