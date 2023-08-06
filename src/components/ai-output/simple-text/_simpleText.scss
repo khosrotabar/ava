@@ -1,0 +1,25 @@
+.simple-text-container {
+  text-align: start;
+  margin-top: 33px;
+  max-height: 250px;
+  overflow-y: auto;
+  direction: rtl;
+  padding-left: 10px;
+
+  .simple-text {
+    font-size: 16px;
+    font-weight: 300;
+    color: $primary-black-color;
+  }
+}
+
+.change-simple-text-container {
+  direction: ltr;
+}
+
+// responsive
+@media (max-height: 810px) {
+  .simple-text-container {
+    max-height: 177px;
+  }
+}

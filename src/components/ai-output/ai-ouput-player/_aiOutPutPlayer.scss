@@ -1,0 +1,66 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-output-player {
+  width: 519px;
+  height: 34px;
+  border-radius: 10px;
+  background-color: $secondary-white-color-70;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  .reset-voice {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    border-radius: 2px;
+    background: $secondary-black-color;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+
+  .resume-voice {
+    cursor: pointer;
+    margin-left: 11px;
+  }
+
+  // voice duration slider
+  .slider {
+    width: 330px;
+    margin-right: 5px;
+    @include flex-center;
+  }
+
+  // voice duration
+  .voice-time {
+    width: 35px;
+    font-size: 14px;
+    color: $secondary-black-color;
+    font-weight: 300;
+    margin-left: 7px;
+    margin-right: 10px;
+  }
+
+  .volume-icon {
+    margin-top: 4px;
+  }
+
+  .volume-indicator {
+    width: 40px;
+    margin-left: 7px;
+    @include flex-center;
+  }
+}
+
+// responsive
+@media (max-height: 810px) {
+  .ai-output-player {
+    .slider {
+      width: 305px;
+    }
+  }
+}

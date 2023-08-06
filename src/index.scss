@@ -1,0 +1,29 @@
+// base and variables
+@import "@/tools/variables";
+@import "@/tools/base";
+@import "@/tools/media";
+
+// components
+@import "@/pages/home/home";
+@import "@/pages/archive/archive";
+@import "@/components/topbar/topbar";
+@import "@/components/rightbar/rightbar";
+@import "@/components/ai-output/aiOutput";
+
+// sub components
+@import "@/components/home-main/homeMain";
+@import "@/components/home-main/home-title/homeTitle";
+@import "@/components/home-main/home-ai-content/homeAiContent";
+@import "@/components/home-main/home-ai-content/home-ai-record/homeAiRecord";
+@import "./components/home-main/home-ai-content/home-ai-upload/homeAiUpload";
+@import "@/components/home-main/home-ai-content/home-ai-link/homeAiLink";
+@import "@/components/home-main/home-lang/homeLang";
+
+@import "@/components/archive-main/ArchiveMain.scss";
+@import "@/components/archive-main/archive-ai-content/ArchiveAiContent";
+@import "@/components/archive-main/archive-ai-content/ai-file/aiFile";
+@import "@/components/archive-main/archive-ai-content/ai-file/ai-file-bottom/AiFileBottom";
+
+@import "@/components/ai-output/simple-text/simpleText";
+@import "@/components/ai-output/time-text/timeText";
+@import "@/components/ai-output/ai-ouput-player/aiOutPutPlayer";

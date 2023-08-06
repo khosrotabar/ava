@@ -1,0 +1,56 @@
+// archive main component
+@mixin media-query($maxWidth, $clName, $clDate, $clType, $clDuration, $lSpace) {
+  @media (max-width: $maxWidth) {
+    .archive-main {
+      .header {
+        .cl-name {
+          flex: $clName;
+        }
+        .cl-date {
+          flex: $clDate;
+        }
+        .cl-type {
+          flex: $clType;
+        }
+        .cl-duration {
+          flex: $clDuration;
+        }
+        .last-space {
+          flex: $lSpace;
+        }
+      }
+    }
+  }
+}
+
+// archive ai file
+@mixin media-query-files(
+  $maxWidth,
+  $aifName,
+  $aifDate,
+  $aifType,
+  $aifDuration,
+  $aifTools
+) {
+  @media (max-width: $maxWidth) {
+    .ai-file {
+      .ai-file-top {
+        .ai-file-name {
+          flex: $aifName;
+        }
+        .ai-file-date {
+          flex: $aifDate;
+        }
+        .ai-file-type {
+          flex: $aifType;
+        }
+        .ai-file-duration {
+          flex: $aifDuration;
+        }
+        .ai-file-tools {
+          flex: $aifTools;
+        }
+      }
+    }
+  }
+}

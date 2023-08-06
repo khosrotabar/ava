@@ -1,0 +1,29 @@
+// homepage
+.home {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100vh;
+  border: 1px solid 1px;
+}
+
+// responsive
+@media (max-width: 910px) {
+  .home {
+    justify-content: center;
+
+    .rightbar {
+      position: fixed;
+      width: 0px;
+      transition: width 0.2s ease;
+      top: 0;
+      right: 0;
+    }
+    .change-rightbar {
+      width: 170px;
+      box-shadow: -8px 0px 8px 0px rgba(0, 0, 0, 0.2);
+      -webkit-box-shadow: -8px 0px 8px 0px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: -8px 0px 8px 0px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

@@ -1,0 +1,67 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// upload section of home ai content
+.home-ai-link {
+  @include flex-center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  // home ai content - link - befor fetch
+  .home-ai-link-prefetch {
+    @include flex-center;
+    max-width: 370px;
+    flex-direction: column;
+
+    .ha-link-container {
+      width: 328px;
+      height: 46px;
+      border-radius: 50px;
+      border: 0.5px solid $primary-red-color;
+      @include flex-center;
+      justify-content: flex-start;
+      padding: 0 18px;
+
+      .ha-link-icon-container {
+        width: 30px;
+        height: 30px;
+        border-radius: 50px;
+        background-color: $primary-red-color;
+        @include flex-center;
+        cursor: pointer;
+      }
+
+      .ha-link-input {
+        width: 85%;
+        margin-left: 10px;
+        font-size: 16px;
+        color: $secondary-black-color;
+        font-weight: 300;
+        border: none;
+        outline: none;
+
+        &::placeholder {
+          color: $secondary-gray-color;
+        }
+      }
+    }
+
+    .ha-link-text {
+      font-size: 16px;
+      font-weight: 300;
+      color: $secondary-gray-color;
+      margin-top: 9px;
+      text-align: center;
+    }
+  }
+
+  // home ai content - link - after fetch
+  .home-ai-link-fetch {
+    width: 100%;
+    height: 100%;
+  }
+}

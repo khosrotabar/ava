@@ -1,0 +1,98 @@
+// file ai output
+.ai-bottom {
+  position: relative;
+  height: 100%;
+  margin-top: 20px;
+  margin-right: 68px;
+  margin-left: 30px;
+  overflow: hidden;
+
+  .ab-top {
+    direction: ltr;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    height: 46px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    // time text - tab
+    .ab-top-time-text {
+      width: 144px;
+      margin-right: 20px;
+    }
+
+    // simple text - tab
+    .ab-top-simple-text {
+      width: 103px;
+    }
+
+    .ab-top-simple-text,
+    .ab-top-time-text {
+      @include flex-center;
+      @include font-text;
+      height: 46px;
+      align-items: flex-start;
+      user-select: none;
+      cursor: pointer;
+
+      div {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+
+        svg,
+        span {
+          margin-top: -10px;
+        }
+
+        span {
+          margin-right: 6px;
+        }
+      }
+    }
+
+    .active-text {
+      border-bottom: 1px solid $primary-black-color;
+      font-weight: 400;
+    }
+  }
+
+  // file texts ouput
+  .ab-output-center {
+    width: 100%;
+    height: 100%;
+
+    .time-text-container {
+      max-height: 160px;
+
+      .time-text {
+        height: 43px;
+      }
+    }
+
+    .simple-text-container {
+      max-height: 150px;
+    }
+  }
+
+  .ab-output-bottom {
+    @include flex-center;
+    direction: ltr;
+    position: absolute;
+    bottom: 32px;
+    right: -20px;
+    width: 100%;
+    height: fit-content;
+    margin-bottom: -16px;
+  }
+}
+
+// responsive
+@media (max-width: 750px) {
+  .ai-bottom {
+    margin-right: 40px;
+    .ab-output-bottom {
+      right: 0;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.time-text-container {
+  text-align: start;
+  width: 100%;
+  margin-top: 16px;
+  padding-left: 13px;
+  direction: rtl;
+  max-height: 275px;
+  overflow-y: auto;
+
+  .time-text {
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-right: 39px;
+    font-size: 16px;
+    font-weight: 300;
+    color: $primary-black-color;
+
+    .time-from {
+      margin-right: 17px;
+    }
+
+    .time-to,
+    .time-from {
+      width: 42px;
+    }
+
+    .text {
+      margin-right: 43px;
+    }
+  }
+
+  // gray background for odd elements
+  .odd {
+    border-radius: 25px;
+    background-color: $secondary-white-color-60;
+  }
+}
+
+// responsive
+@media (max-height: 810px) {
+  .time-text-container {
+    max-height: 195px;
+  }
+}

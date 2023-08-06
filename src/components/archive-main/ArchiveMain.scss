@@ -1,0 +1,62 @@
+// archive main content between topbar & rightbar
+.archive-main {
+  width: 998px;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .archive-main-title {
+    margin-top: 88px;
+    margin-bottom: 42px;
+    font-size: 24px;
+    font-weight: 400;
+    color: $primary-green-color;
+  }
+
+  .header {
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    font-size: 14px;
+    font-weight: 500;
+    color: $primary-black-color;
+    direction: rtl;
+    // space - empty div
+    .first-space {
+      flex: 1;
+    }
+    // columns
+    .cl-name {
+      flex: 5.4;
+    }
+    .cl-date {
+      flex: 1.7;
+      text-align: center;
+    }
+    .cl-type {
+      flex: 1;
+      text-align: center;
+    }
+    .cl-duration {
+      flex: 1.1;
+      text-align: center;
+    }
+    // space - empty div
+    .last-space {
+      flex: 1.8;
+    }
+  }
+}
+
+// responsive
+@media (max-width: 1220px) {
+  .archive-main {
+    align-items: center;
+  }
+}
+
+@include media-query(970px, 4.4, 1.7, 1, 1.1, 2.8);
+
+@include media-query(850px, 2.9, 2.2, 1.5, 1.6, 2.8);

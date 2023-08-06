@@ -1,0 +1,64 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// record section of home ai content
+.home-ai-record {
+  @include flex-center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  // home ai content - record - befor fetch
+  .home-ai-record-prefetch {
+    @include flex-center;
+    max-width: 276px;
+    flex-direction: column;
+
+    .ha-record-icon-container {
+      @include flex-center;
+      width: 62px;
+      height: 62px;
+      border-radius: 50px;
+      margin-bottom: 7px;
+      cursor: pointer;
+      background-color: $secondary-green-color-80;
+    }
+    .change-ha-record-icon-container {
+      animation: myAnim 1s linear 0s infinite normal none;
+    }
+
+    .ha-record-text {
+      font-size: 16px;
+      font-weight: 300;
+      color: $secondary-gray-color;
+      text-align: center;
+    }
+  }
+
+  // home ai content - record - after fetch
+  .home-ai-record-fetch {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// animations
+@keyframes myAnim {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.2);
+  }
+
+  80% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}

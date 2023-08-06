@@ -1,0 +1,43 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// upload section of home ai content
+.home-ai-upload {
+  @include flex-center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  // home ai content - upload - befor fetch
+  .home-ai-upload-prefetch {
+    @include flex-center;
+    max-width: 415px;
+    flex-direction: column;
+
+    .ha-upload-icon-container {
+      @include flex-center;
+      width: 62px;
+      height: 62px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      background-color: $primary-blue-color;
+    }
+
+    .ha-upload-text {
+      font-size: 16px;
+      font-weight: 300;
+      color: $secondary-gray-color;
+      text-align: center;
+    }
+  }
+
+  // home ai content - upload - after fetch
+  .home-ai-upload-fetch {
+    width: 100%;
+    height: 100%;
+  }
+}

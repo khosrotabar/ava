@@ -1,0 +1,33 @@
+// archive page
+.archive {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100vh;
+}
+
+// responsive
+@media (max-width: 1220px) {
+  .archive {
+    justify-content: center;
+    .rightbar {
+      width: 0px;
+      transition: width 0.2s ease;
+      position: fixed;
+      top: 0;
+      right: 0;
+    }
+    .change-rightbar {
+      width: 170px;
+      box-shadow: -8px 0px 8px 0px rgba(0, 0, 0, 0.2);
+      -webkit-box-shadow: -8px 0px 8px 0px rgba(0, 0, 0, 0.2);
+      -moz-box-shadow: -8px 0px 8px 0px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+@media (max-width: 1085px) {
+  .archive {
+    padding: 0 47px;
+  }
+}

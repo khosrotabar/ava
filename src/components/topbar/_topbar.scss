@@ -1,0 +1,94 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+// topbar
+.topbar {
+  @include flex-center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 48px 47px;
+  justify-content: space-between;
+
+  // topbar left side
+  .topbar-user {
+    @include flex-center;
+    width: 121px;
+    height: 40.5px;
+    border-radius: 20px;
+    border: 1.5px solid $primary-green-color;
+    flex-direction: column;
+    overflow: hidden;
+    transition: height 0.2s ease;
+
+    // guest section
+    .topbar-user-top {
+      @include flex-center;
+      margin-top: 8px;
+      cursor: pointer;
+
+      .drop-icon {
+        transform: rotateX(180deg);
+        transition: 0.2s ease;
+      }
+
+      .topbar-user-text {
+        margin-left: 11px;
+        margin-right: 5px;
+        margin-top: -4px;
+        font-size: 15px;
+        font-weight: 400;
+        color: $primary-green-color;
+        user-select: none;
+      }
+    }
+
+    // spacing line
+    .hr-line-space {
+      margin-top: 7px;
+      margin-bottom: 6px;
+      height: 0.6px;
+      width: 84px;
+      background-color: $primary-green-color;
+    }
+
+    // logout section
+    .topbar-user-bottom {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .topbar-user-logout-text {
+        margin-right: 10px;
+        font-size: 15px;
+        font-weight: 400;
+        color: $primary-green-color;
+        user-select: none;
+      }
+    }
+  }
+  .change-topbar-user {
+    height: 81px;
+  }
+
+  // topbar right side
+  .menu {
+    @include flex-center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid $primary-green-color;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+
+// responsive
+@media (max-height: 721px) {
+  .topbar {
+    padding: 31px 47px;
+  }
+}
