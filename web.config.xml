@@ -1,9 +1,0 @@
-<configuration>
-  <system.webServer>
-    <httpProtocol>
-      <customHeaders>
-        <remove name="Permissions-Policy" />
-      </customHeaders>
-    </httpProtocol>
-  </system.webServer>
-</configuration>
