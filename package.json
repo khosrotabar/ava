@@ -2,7 +2,7 @@
   "name": "ava",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://khosrotabar.github.io/ava",
+  "homepage": "https://khosrotabar.github.io/ava/",
   "type": "module",
   "scripts": {
     "dev": "vite",
