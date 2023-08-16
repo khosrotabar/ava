@@ -1,9 +1,15 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import { StopCircleOutlined } from "@mui/icons-material";
+import useWebSocket, { ReadyState } from "react-use-websocket";
 
+import Loader from "@/components/loader/Loader";
 import AiOutput from "@/components/ai-output/AiOutput";
 import HomeLang from "@/components/home-main/home-lang/HomeLang";
+import { text } from "@/shared/types";
 import { recordMic } from "@/utilities/svg/svg";
+import { recordApi } from "@/api/AsyncAPI";
 import {
   handleStartRecording,
   handleStopRecording,
@@ -11,161 +17,169 @@ import {
 
 const HomeAiRecord = () => {
   const [isFetch, setIsFetch] = useState<boolean>(false);
+  const [startFetch, setStartFetch] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const [langSelect, setLangSelect] = useState<string>("FA");
+  const [langSelect, setLangSelect] = useState<string>("fa");
   const [paused, setPaused] = useState<boolean>(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const [duration, setDuration] = useState<number>(0);
+  const [audioDuration, setAudioDuration] = useState<number>(0);
   const [audioUrl, setAudioUrl] = useState<string>("");
+  const [file, setFile] = useState<Blob | undefined>(undefined);
+  const [text, setText] = useState<text[]>([
+    { start: "0:00:00", end: "0:00:00", text: "" },
+  ]);
+  const notify = (value: string) => toast.error(value);
 
-  // dummy simple text
-  const text =
-    "[با][---][---] [با] و[---][---] [با][---][---][---][---] کجایی تو [خوش] می دیدی من خسته شدم [ما را] [به] این [زودی] چه جوری شد [عشق شدی] به این است[---] [آخرش] سی با فکر [و] چقدر [نزار می خوام] که [چشم تو] [و با رفت][---][---][---][---][---][---][---][---] سخت [آرام] ولی ازت می خوام[---] بر نگردی هر کسی که به [تو] باشه[---] کاشکی تو منو [بردی] [که چشمک][---] با[---][---][---][---][---] [ابو][---] [با] و و و و و [او]";
-  const engText =
-    "[---][---] Lili, take another walk out [of] your fake world [---][---] [Please] put all the drugs out of your hand [---][---] [---][---] You'll see that you can breathe without no back [up] [---][---] So much [stuff] you got to [understand] For every step [---][---] in any walkAny town of any thought[I'll] be your guideFor every street of [any] [sceneAny] place you've never [beenI'll] be your guide [---][---][---][---]";
+  // websocket
+  const options = {
+    onOpen: () => {
+      console.log("WebSocket connection opened");
+    },
+    onClose: () => {
+      console.log("WebSocket connection closed");
+    },
+  };
+  const url = "wss://harf.roshan-ai.ir/ws_api/transcribe_files/";
+  const { readyState, sendJsonMessage, lastJsonMessage } = useWebSocket(
+    url,
+    options
+  );
 
-  // dummy time text
-  const timeText = [
-    {
-      id: 1,
-      text: "[با]",
-      from: 0,
-      to: 3,
-    },
-    {
-      id: 2,
-      text: "[---]",
-      from: 3,
-      to: 6,
-    },
-    {
-      id: 3,
-      text: "[---]",
-      from: 6,
-      to: 8,
-    },
-    {
-      id: 4,
-      text: "[با]",
-      from: 8,
-      to: 12,
-    },
-    {
-      id: 5,
-      text: "[او]",
-      from: 12,
-      to: 14,
-    },
-    {
-      id: 6,
-      text: "و و و و و",
-      from: 14,
-      to: 18,
-    },
-  ];
-  const engtimeText = [
-    {
-      id: 1,
-      text: "lili",
-      from: 0,
-      to: 2,
-    },
-    {
-      id: 2,
-      text: "[---]",
-      from: 2,
-      to: 4,
-    },
-    {
-      id: 3,
-      text: "takeanother walk",
-      from: 4,
-      to: 7,
-    },
-    {
-      id: 4,
-      text: "[---]",
-      from: 7,
-      to: 8,
-    },
-    {
-      id: 5,
-      text: "out [of] your fake world",
-      from: 8,
-      to: 14,
-    },
-  ];
+  // convert audio blob to arraybuffer
+  function convertBlobToArrayBuffer(blob: Blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        resolve(reader.result);
+      };
+
+      reader.onerror = () => {
+        reject(new Error("Unable to convert blob to ArrayBuffer."));
+      };
+
+      reader.readAsArrayBuffer(blob);
+    });
+  }
+
+  // get arraybuffer
+  async function handleAudioBlob(blob: Blob) {
+    try {
+      const arrayBuffer = await convertBlobToArrayBuffer(blob);
+      if (arrayBuffer) {
+        console.log(arrayBuffer);
+        sendJsonMessage(arrayBuffer);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // run record api when file selected - record api
+  useEffect(() => {
+    if (file) {
+      recordApi({
+        setAudioDuration,
+        setStartFetch,
+        setIsFetch,
+        setText,
+        notify,
+        langSelect,
+        file,
+      });
+
+      // handle websocket
+      if (readyState === ReadyState.OPEN) {
+        handleAudioBlob(file);
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [file]);
+
+  useEffect(() => {
+    if (lastJsonMessage) {
+      // Handle the response accordingly
+      console.log("response:", lastJsonMessage);
+    } else {
+      console.log(lastJsonMessage);
+    }
+  }, [lastJsonMessage]);
 
   // voice record handler
-  const recordHandler = () => {
-    if (!isRecording) {
+  useEffect(() => {
+    if (isRecording) {
       handleStartRecording({
         mediaRecorderRef,
         setAudioUrl,
-        setDuration,
-        setIsRecording,
+        setFile,
       });
     } else {
-      handleStopRecording({ mediaRecorderRef, setIsRecording, setIsFetch });
+      handleStopRecording({ mediaRecorderRef });
     }
-  };
-
-  // api for record - get simple text & time text & voice
+  }, [isRecording]);
 
   return (
-    <div className="home-ai-record">
+    <div className='home-ai-record'>
       {/* dummy voice */}
       <audio
-        id="audio"
-        preload="none"
+        id='audio'
+        preload='none'
         ref={audioRef}
         style={{ display: "none" }} // for challenge - 1
         onContextMenu={() => false}
         onEnded={() => setPaused(true)}
         hidden
-        src={audioUrl}
-      ></audio>
+        src={audioUrl}></audio>
       {/* seperate from dummy voice */}
       {isFetch ? (
         // home ai content output - after fetch from server
-        <div className="home-ai-record-fetch">
+        <div className='home-ai-record-fetch'>
           <AiOutput
             setPaused={setPaused}
             paused={paused}
             audioRef={audioRef && audioRef}
-            text={langSelect === "FA" ? text : engText}
-            timeText={langSelect === "FA" ? timeText : engtimeText}
+            text={text}
             currentTab={"record"}
-            duration={duration}
+            duration={audioDuration}
             lang={langSelect}
             setIsFetch={setIsFetch}
           />
         </div>
+      ) : // home ai content output - before fetch from server
+      startFetch ? (
+        <Loader />
       ) : (
-        // home ai content output - before fetch from server
         <motion.div
-          className="home-ai-record-prefetch"
-          initial="hidden"
-          whileInView="visible"
+          className='home-ai-record-prefetch'
+          initial='hidden'
+          whileInView='visible'
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.3 }}
           variants={{
             hidden: { opacity: 0, y: 30 },
             visible: { opacity: 1, y: 0 },
-          }}
-        >
-          <div
-            className={`ha-record-icon-container ${
-              isRecording && "change-ha-record-icon-container"
-            }`}
-            onClick={recordHandler}
-          >
-            {/* record mic icon */}
-            {recordMic}
+          }}>
+          <div className='home-ai-record'>
+            {/* stope record */}
+            {isRecording && (
+              <div className='stopIcon' onClick={() => setIsRecording(false)}>
+                <StopCircleOutlined fontSize='large' />
+              </div>
+            )}
+            {/* start record */}
+            <div
+              className={`ha-record-icon-container ${
+                isRecording && "change-ha-record-icon-container"
+              }`}
+              onClick={() => setIsRecording(true)}>
+              {/* record mic icon */}
+              {recordMic}
+            </div>
           </div>
-          <span className="ha-record-text">
+          <span className='ha-record-text'>
             برای شروع به صحبت، دکمه را فشار دهید متن پیاده شده آن، در اینجا ظاهر
             شود
           </span>

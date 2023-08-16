@@ -15,8 +15,7 @@ const HomeAiContent = ({ activetab }: homeAiContentProps) => {
           : activetab === 3
           ? "home-bottom-form-content active-link-border"
           : ""
-      }
-    >
+      }>
       {activetab === 1 ? (
         <HomeAiRecord />
       ) : activetab === 2 ? (

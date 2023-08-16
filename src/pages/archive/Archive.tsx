@@ -8,7 +8,7 @@ const Archive = () => {
   const [isResp, setIsResp] = useState<boolean>(false);
 
   return (
-    <div className="archive">
+    <div className='archive'>
       <Topbar isResp={isResp} setIsResp={setIsResp} />
       <ArchiveMain />
       <Rightbar isResp={isResp} setIsResp={setIsResp} />

@@ -40,41 +40,37 @@ const Rightbar = ({ isResp, setIsResp }: topbarProps) => {
   return (
     <div
       className={`rightbar ${isResp && "change-rightbar"}`}
-      ref={rightbarRef}
-    >
+      ref={rightbarRef}>
       {/* rightbar background image */}
-      <div className="rightbar-hover"></div>
+      <div className='rightbar-hover'></div>
       {/* rightbar top */}
-      <div className="rightbar-top">
-        <span className="rightbar-top-text">آوا</span>
+      <div className='rightbar-top'>
+        <span className='rightbar-top-text'>آوا</span>
         {/* icon svg */}
         {icon}
       </div>
       {/* rightbar bottom */}
-      <div className="rightbar-bottom">
+      <div className='rightbar-bottom'>
         {/* link to homepage */}
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+        <Link to='/' style={{ textDecoration: "none", color: "inherit" }}>
           <div
             className={`rightbar-bottom-speech ${
               currentPage === "home" && "active-tab"
-            }`}
-          >
-            <span className="rb-speech-text">تبدیل گفتار</span>
+            }`}>
+            <span className='rb-speech-text'>تبدیل گفتار</span>
             {/* speech icon */}
             {speechIcon}
           </div>
         </Link>
         {/* link to archive page */}
         <Link
-          to="/archive"
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
+          to='/archive'
+          style={{ textDecoration: "none", color: "inherit" }}>
           <div
             className={`rightbar-bottom-archive ${
               currentPage === "archive" && "active-tab"
-            }`}
-          >
-            <span className="rb-archive-text">آرشیو</span>
+            }`}>
+            <span className='rb-archive-text'>آرشیو</span>
             {/* archive icon */}
             {archiveIcon}
           </div>

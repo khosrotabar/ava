@@ -17,12 +17,22 @@
     max-width: 276px;
     flex-direction: column;
 
+    .home-ai-record {
+      @include flex-center;
+
+      .stopIcon {
+        color: $primary-red-color;
+        cursor: pointer;
+      }
+    }
+
     .ha-record-icon-container {
       @include flex-center;
       width: 62px;
       height: 62px;
       border-radius: 50px;
       margin-bottom: 7px;
+      margin-left: 20px;
       cursor: pointer;
       background-color: $secondary-green-color-80;
     }
@@ -54,11 +64,11 @@
 
   80% {
     opacity: 0;
-    transform: scale(1.2);
+    transform: scale(1);
   }
 
   100% {
     opacity: 0;
-    transform: scale(2.2);
+    transform: scale(1.2);
   }
 }

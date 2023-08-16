@@ -12,7 +12,7 @@ function App() {
     {
       path: "/",
       element: (
-        <Suspense fallback={<LinearProgress color="success" />}>
+        <Suspense fallback={<LinearProgress color='success' />}>
           <Home />
         </Suspense>
       ),
@@ -20,7 +20,7 @@ function App() {
     {
       path: "/archive",
       element: (
-        <Suspense fallback={<LinearProgress color="success" />}>
+        <Suspense fallback={<LinearProgress color='success' />}>
           <Archive />
         </Suspense>
       ),

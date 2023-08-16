@@ -7,21 +7,10 @@ const checkString = (str: string): boolean => {
 };
 
 // dev mode - link handler - challenge 1
-export const linkHandler = ({
-  linkValue,
-  notify,
-  setAudioDuration,
-  setIsFetch,
-}: linkHandleProps) => {
+export const linkHandler = ({ linkValue, notify }: linkHandleProps) => {
   if (linkValue === "") {
     notify("!لینک نباید خالی باشد");
   } else if (!checkString(linkValue)) {
     notify("!فرمت لینک وارد شده صحیح نیست");
-  } else {
-    const audio = new Audio(linkValue);
-    audio.addEventListener("loadedmetadata", () => {
-      setAudioDuration(audio.duration);
-    });
-    setIsFetch(true);
   }
 };

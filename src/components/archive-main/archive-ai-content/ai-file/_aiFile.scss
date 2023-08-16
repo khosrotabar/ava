@@ -25,7 +25,8 @@
   margin-bottom: 21px;
   border-radius: 10px;
   overflow-y: hidden;
-  transition: height 0.2s ease;
+  border: 1px solid $secondary-white-color-80;
+  transition: all 0.2s ease;
   flex-direction: column;
   cursor: default;
 
@@ -149,6 +150,32 @@
 
   .ai-file-bottom {
     height: calc(100% - 65px);
+
+    .skeleton-texts-container {
+      width: 86%;
+      margin: auto;
+      margin-top: 30px;
+      .skeleton-texts-tabs {
+        width: 30%;
+        .tabs {
+          height: 28px;
+        }
+      }
+      .skeleton-texts-content {
+        margin-top: 15px;
+        .content {
+          height: 170px;
+        }
+      }
+      .skeleton-texts-media {
+        width: 60%;
+        margin: auto;
+        margin-top: 15px;
+        .media {
+          height: 28px;
+        }
+      }
+    }
   }
 
   // reactTooltip package styles
@@ -162,8 +189,17 @@
   }
 }
 // change file height on click
-.change-ai-file {
+.change-ai-file-record {
   height: 352px;
+  border: 1px solid $primary-green-color;
+}
+.change-ai-file-upload {
+  height: 352px;
+  border: 1px solid $primary-blue-color;
+}
+.change-ai-file-link {
+  height: 352px;
+  border: 1px solid $primary-red-color;
 }
 
 // responsive

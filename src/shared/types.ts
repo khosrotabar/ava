@@ -1,28 +1,30 @@
 import { Dispatch, MutableRefObject } from "react";
 
-export interface timeText {
-  id: number;
-  text: string;
-  from: number;
-  to: number;
-  active?: boolean;
+export interface data {
+  count: number | undefined;
+  next: null | string;
+  previous: null | string;
+  results: dataResults[] | undefined;
 }
 
-export interface data {
+export interface dataResults {
   id: number;
-  name: string;
-  createdAt: string;
-  voiceType: string;
-  sendType: string;
-  duration: number; // seconds
-  downloadLink: string;
-  wordLink: string;
-  text: string;
-  timeText: timeText[];
-  size: number;
-  audio: string;
+  request_type: string;
+  duration: string;
+  date: string;
+  request_data: {
+    language: string;
+    media_url?: string;
+    media_urls: string[] | string;
+  };
   isActive?: boolean;
-  lang: string;
+}
+
+export interface text {
+  start: string;
+  end: string;
+  text: string;
+  active?: boolean;
 }
 
 export type homeLangProps = {
@@ -39,12 +41,11 @@ export type homeAiContentProps = {
 
 export type aiOutputProps = {
   currentTab: string;
-  text: string;
-  timeText: timeText[];
+  text: text[];
+  lang: string;
   paused: boolean;
   audioRef: MutableRefObject<HTMLAudioElement | null>;
-  duration?: number;
-  lang: string;
+  duration: number;
   setPaused: Dispatch<boolean>;
   setIsFetch?: Dispatch<boolean>;
 };
@@ -58,20 +59,23 @@ export type aiOutputPlayerProps = {
 };
 
 export type simpleTextProps = {
-  text: string;
+  text: text[];
+  paused: boolean;
   lang: string;
+  audioRef?: MutableRefObject<HTMLAudioElement | null>;
 };
 
 export type timeTextProps = {
-  timeText: timeText[];
+  text: text[];
   paused: boolean;
+  lang: string;
   audioRef?: MutableRefObject<HTMLAudioElement | null>;
 };
 
 export type aiFileProps = {
-  item: data;
-  files: data[];
-  setFiles: Dispatch<data[]>;
+  item: dataResults;
+  files: data | null;
+  setFiles: Dispatch<data>;
   onItemClick: (itemId: number) => void;
 };
 

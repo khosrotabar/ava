@@ -54,3 +54,37 @@
     }
   }
 }
+
+// archive ai files/list preview
+@mixin media-query-skeleton(
+  $maxWidth,
+  $sknName,
+  $sknDate,
+  $sknType,
+  $sknDuration,
+  $sknTools
+) {
+  @media (max-width: $maxWidth) {
+    .archive-ai-content {
+      .ai-files-container {
+        .skeleton-container {
+          .skeleton-name {
+            flex: $sknName;
+          }
+          .skeleton-date {
+            flex: $sknDate;
+          }
+          .skeleton-type {
+            flex: $sknType;
+          }
+          .skeleton-duration {
+            flex: $sknDuration;
+          }
+          .skeleton-tools {
+            flex: $sknTools;
+          }
+        }
+      }
+    }
+  }
+}

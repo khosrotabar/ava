@@ -27,6 +27,11 @@
 @media (max-width: 910px) {
   .home-bottom-form-content {
     width: 100%;
+  }
+}
+
+@media (max-width: 910px) and (max-height: 810px) {
+  .home-bottom-form-content {
     height: 335px;
   }
 }

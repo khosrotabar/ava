@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 
-import { timeTextProps, timeText } from "@/shared/types";
-import { formatDuration } from "@/helpers/archive-ai-files-functions";
+import { timeTextProps, text } from "@/shared/types";
+import {
+  convertSecond,
+  formatDurationTextTime,
+} from "@/helpers/archive-ai-files-functions";
 
-const TimeText = ({ timeText, paused, audioRef }: timeTextProps) => {
-  const [timeTextArray, setTimeTextArray] = useState<timeText[]>(timeText);
+const TimeText = ({ text, lang, paused, audioRef }: timeTextProps) => {
+  const [textArray, setTextArray] = useState<text[]>(text);
 
   // detect number odd and even
   const isEven = (num: number) => num % 2 === 0;
@@ -30,14 +33,17 @@ const TimeText = ({ timeText, paused, audioRef }: timeTextProps) => {
           ? currentAudioRef.currentTime
           : audioElement.currentTime;
 
-        const updateArray = timeTextArray.map((t) => {
-          if (t.from <= currentAudioTime && t.to >= currentAudioTime) {
+        const updateArray = textArray.map((t) => {
+          if (
+            convertSecond(t.start) <= currentAudioTime &&
+            convertSecond(t.end) >= currentAudioTime
+          ) {
             return { ...t, active: true };
           } else {
             return { ...t, active: false };
           }
         });
-        setTimeTextArray(updateArray);
+        setTextArray(updateArray);
       };
 
       const intervalId = setInterval(updateCurrentTime, 1000);
@@ -45,21 +51,22 @@ const TimeText = ({ timeText, paused, audioRef }: timeTextProps) => {
         clearInterval(intervalId);
       };
     }
-  }, [paused, timeTextArray, audioRef]);
+  }, [paused, textArray, audioRef]);
 
   return (
-    <div className="time-text-container">
-      {timeTextArray.map((t) => {
+    <div className='time-text-container'>
+      {textArray.map((t, index) => {
         return (
           <div
-            key={t.id}
-            className={isEven(t.id) ? "time-text" : "time-text odd"}
+            key={index}
+            className={isEven(index + 1) ? "time-text" : "time-text odd"}
             style={t.active ? { color: "#118ad3" } : {}}
-            id={t.active ? "active" : "not-active"}
-          >
-            <span className="time-to">{formatDuration(t.to)}</span>
-            <span className="time-from">{formatDuration(t.from)}</span>
-            <span className="text">{t.text}</span>
+            id={t.active ? "active" : "not-active"}>
+            <span className='time-to'>{formatDurationTextTime(t.end)}</span>
+            <span className='time-from'>{formatDurationTextTime(t.start)}</span>
+            <span className={`text ${lang === "en" && "change-text"}`}>
+              {t.text}
+            </span>
           </div>
         );
       })}

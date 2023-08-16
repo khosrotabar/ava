@@ -8,7 +8,7 @@ const Home = () => {
   const [isResp, setIsResp] = useState<boolean>(false);
 
   return (
-    <div className="home">
+    <div className='home'>
       <Topbar isResp={isResp} setIsResp={setIsResp} />
       <HomeMain />
       <Rightbar isResp={isResp} setIsResp={setIsResp} />

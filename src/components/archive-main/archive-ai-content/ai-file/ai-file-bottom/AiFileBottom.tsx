@@ -8,10 +8,10 @@ import AiOutputPlayer from "@/components/ai-output/ai-ouput-player/AiOutputPlaye
 const AiFileBottom = ({
   currentTab,
   text,
-  timeText,
   paused,
   audioRef,
   lang,
+  duration,
   setPaused,
 }: aiOutputProps) => {
   const [activeText, setActiveText] = useState<number>(1);
@@ -98,9 +98,19 @@ const AiFileBottom = ({
       {/* file text output */}
       <div className="ab-output-center">
         {activeText === 1 ? (
-          <SimpleText lang={lang} text={text} />
+          <SimpleText
+            paused={paused}
+            lang={lang}
+            text={text}
+            audioRef={audioRef}
+          />
         ) : (
-          <TimeText paused={paused} audioRef={audioRef} timeText={timeText} />
+          <TimeText
+            paused={paused}
+            lang={lang}
+            audioRef={audioRef}
+            text={text}
+          />
         )}
       </div>
       {/* file voice output */}
@@ -110,7 +120,7 @@ const AiFileBottom = ({
           paused={paused}
           currentTab={currentTab}
           audioRef={audioRef}
-          duration={1062} // later it will be item.duration
+          duration={duration}
         />
       </div>
     </div>

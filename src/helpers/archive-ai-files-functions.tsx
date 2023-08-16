@@ -26,6 +26,49 @@ export const formatDuration = (value: number) => {
   }:${secondLeft < 10 ? `0${secondLeft}` : secondLeft}`;
 };
 
+// format createdAt date
+export const convertDatetimeToDate = (datetime: string): string => {
+  const dateObj = new Date(datetime);
+  const year = dateObj.getUTCFullYear() - 621;
+  const month = dateObj.getUTCMonth() + 1;
+  const day = dateObj.getUTCDate();
+  return `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
+};
+
+// format audio duration - string mode
+export const formatDurationTextTime = (time: string) => {
+  const timeComponents = time.split(":");
+  const hours = parseInt(timeComponents[0]);
+  const minutes = parseInt(timeComponents[1]);
+  const seconds = parseInt(timeComponents[2]);
+
+  let convertedTime: string;
+  if (hours === 0) {
+    convertedTime = `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  } else {
+    convertedTime = `${hours}:${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  }
+
+  return convertedTime;
+};
+
+// covert string time to seconds
+export const convertSecond = (time: string) => {
+  const timeComponents = time.split(":");
+  const hours = parseInt(timeComponents[0]);
+  const minutes = parseInt(timeComponents[1]);
+  const seconds = parseInt(timeComponents[2]);
+  const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+  return totalSeconds;
+};
+
 // copy text handler
 export const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text);
@@ -46,15 +89,22 @@ export const deleteHandler = ({
   audioRef,
   item,
 }: deleteHandlerProps) => {
-  const filesUpdate = files.filter((file) => file.id !== item.id);
+  const filesUpdate = {
+    ...files!,
+    results: files?.results?.filter((file) => file.id !== item.id),
+  };
+
   setFiles(filesUpdate);
   audioRef.current?.pause();
 };
 
 // download audio handler
-export const downloadHandler = ({ item, audioRef }: downloadHandlerProps) => {
+export const downloadHandler = ({
+  audioUrl,
+  audioRef,
+}: downloadHandlerProps) => {
   const link = document.createElement("a");
-  link.href = item?.audio || audioRef?.current?.src || "";
+  link.href = audioUrl || audioRef?.current?.src || "";
   link.download = "audio.mp3";
   link.click();
 };
