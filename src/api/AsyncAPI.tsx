@@ -14,7 +14,7 @@ import {
 
 // shared variables
 const url = "https://harf.roshan-ai.ir/api/transcribe_files/";
-const listUrl = "https://harf.roshan-ai.ir/api/requests/";
+const listUrl = "https://harf.roshan-ai.ir/api/requests";
 const token = localStorage.getItem("Token");
 
 // api for record
